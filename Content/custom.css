@@ -1,0 +1,25 @@
+/* your styles go here */
+
+
+.btn-primary {
+    color: white; 
+     background-color: blue; 
+     border-color: blue; 
+}
+.btn-action {
+    color: white;
+    background-color: cornflowerblue;
+    border-color: cornflowerblue;
+    
+}
+.txt-edit{
+    color:magenta;
+}
+
+.txt-detail{
+    color:midnightblue;
+}
+
+.txt-delete {
+    color:firebrick;
+}

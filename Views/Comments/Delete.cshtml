@@ -1,0 +1,91 @@
+﻿@model TFridBlog.Models.Comment
+
+@{
+    ViewBag.Title = "Delete Comment";
+}
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>Delete</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <h3 class="text-danger">Are you sure you want to delete this?</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Author.FirstName)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Author.FirstName)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.BlogPost.Title)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.BlogPost.Title)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Create)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Create)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Update)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Update)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UpdateReason)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.UpdateReason)
+                    </dd>
+
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Body)
+                    </dt>
+
+                    <dd>
+                        @Html.DisplayFor(model => model.Body)
+                    </dd>
+
+                </dl>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                
+                @using (Html.BeginForm("Delete", "Comments", FormMethod.Post, null))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("Slug", Model.BlogPost.Slug)   
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-action" />
+
+                    @Html.ActionLink("Back to Post", "Details", "BlogPosts", new { slug = Model.BlogPost.Slug }, new { @class = "btn btn-dark" })
+                    @*  TLF I'll uncomment this button after I add moderator comment list functionality
+                     @Html.ActionLink("Back to  Comment List", "Index", null, new { @class = "btn btn-dark" })*@
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+
+  

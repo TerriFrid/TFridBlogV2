@@ -1,0 +1,189 @@
+﻿@using TFridBlog.Models
+@model BlogPost
+
+
+
+<div class="container">
+    <div class="row">
+        <!-- Latest Posts -->
+        <main class="post blog-post col-lg-8">
+            <div class="container">
+                <div class="post-single">
+                    <div class="post-thumbnail">
+                        @if (Model.MediaUrl != null)
+                        {
+                            <img src="@Model.MediaUrl" alt="..." class="img-fluid">
+                        }
+                        </div>
+                    <div class="post-details">
+                        @*<div class="post-meta d-flex justify-content-between">
+                            <div class="category"><a href="#">Business</a><a href="#">Financial</a></div>
+                        </div>*@
+                        <h1>@Model.Title <a href="#"><i class="fa fa-bookmark-o"></i></a></h1>
+                        <div class="post-footer d-flex align-items-center flex-column flex-sm-row">
+                            <a href="#" class="author d-flex align-items-center flex-wrap">
+                                <div class="avatar"><img src="~/Image/profile-img.jpg" alt="..." class="img-fluid"></div>
+                                <div class="title"><span>Terri Frid</span></div>
+                            </a>
+                            <div class="d-flex align-items-center flex-wrap">
+                                <div class="date"><i class="icon-clock"></i> @Model.Created.ToString("MMM dd, yyyy")</div>
+                                @*<div class="views"><i class="icon-eye"></i> 500</div>*@
+                                <div class="comments meta-last"><i class="icon-comment"></i><span class="no-of-comments">(@Model.Comments.Count())</span></div>
+                            </div>
+                        </div>
+                        <div class="post-body">
+                            <p class="lead"> @Model.Abstract</p>
+                            <p>@Html.Raw(Model.Body)</p>
+                        </div>
+                       @*<div class="post-tags"><a href="#" class="tag">#Business</a><a href="#" class="tag">#Tricks</a><a href="#" class="tag">#Financial</a><a href="#" class="tag">#Economy</a></div>*@
+          
+                    <div class="post-comments">
+                        <header>
+                            <h3 class="h6">Post Comments<span class="no-of-comments">(@Model.Comments.Count())</span></h3>
+                        </header>
+
+                        @foreach (var comment in Model.Comments.OrderByDescending(c => c.Create).ToList())
+                        {
+                            <div class="comment">
+                                <div class="comment-header d-flex justify-content-between">
+                                    <div class="user d-flex align-items-center">                                       
+                                        <div class="row">   
+                                            
+                                            @*Need to have a mechanism for registered user to upload avatar before this can be programmatic*@
+                                            @*<div class="image"><img src="~/Image/user.svg" alt="..." class="img-fluid rounded-circle"></div>*@
+                                            <div class="title"><strong> @comment.Author.FirstName @comment.Author.LastName </strong><span class="date">@comment.Create</span></div>
+                                           
+                                            @if (User.IsInRole("Admin") || User.IsInRole("Moderator"))
+                                            {
+                                                <div class="col">
+                                                    @Html.ActionLink("Edit", "Edit", "Comments", new {Id = comment.Id },  new { @class = "text-success" })
+                                                    @Html.ActionLink("Delete", "Delete", "Comments", new {Id = comment.Id }, new { @class = "txt-delete" })
+                                                </div>
+                                            }
+
+                                        </div>                                        
+                                    </div>
+                                    <div class="comment-body">
+                                        <p>@comment.Body</p>
+                                    </div>                                                                     
+                                </div>                               
+                            </div>
+
+                        }
+
+                        @*This form cannot be shown unless the user is logged in otherwise we have no idea who the user is*@
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            using (Html.BeginForm("Create", "Comments", FormMethod.Post, null))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.Hidden("BlogPostId", Model.Id)
+                                @Html.Hidden("Slug", Model.Id)
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            @Html.TextArea("CommentBody", new { rows = 10, cols = 70 })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-action">Add</button>
+                                        </div>
+                                    </div>
+                                </div>                   
+                            }
+                        }
+
+                        @*</form>*@
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <aside class="col-lg-4">
+            @*<div class="widget search">
+                <header>
+                    <h3 class="h6">Search the blog</h3>
+                </header>
+                <form action="#" class="search-form">
+                    <div class="form-group">
+                        <input type="search" placeholder="What are you looking for?">*@
+                        <!-- Widget [Search Bar Widget]-->
+                        @*<button type="submit" class="submit"><i class="icon-search"></i></button>
+                    </div>
+                </form>
+            </div>*@
+            <!-- Widget [Latest Posts Widget]        -->
+            <div class="widget latest-posts">
+                <header>
+                    <h3 class="h6">Latest Posts</h3>
+                </header>
+                <div class="blog-posts">
+                    <a href="#">
+                        <div class="item d-flex align-items-center">
+                            <div class="image"><img src="~/Image/small-thumbnail-1.jpg" alt="..." class="img-fluid"></div>
+                            <div class="title">
+                                <strong>Alberto Savoia Can Teach You About</strong>
+                                <div class="d-flex align-items-center">
+                                    <div class="views"><i class="icon-eye"></i> 500</div>
+                                    <div class="comments"><i class="icon-comment"></i>12</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a><a href="#">
+                        <div class="item d-flex align-items-center">
+                            <div class="image"><img src="~/Image/small-thumbnail-2.jpg" alt="..." class="img-fluid"></div>
+                            <div class="title">
+                                <strong>Alberto Savoia Can Teach You About</strong>
+                                <div class="d-flex align-items-center">
+                                    <div class="views"><i class="icon-eye"></i> 500</div>
+                                    <div class="comments"><i class="icon-comment"></i>12</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a><a href="#">
+                        <div class="item d-flex align-items-center">
+                            <div class="image"><img src="~/Image/small-thumbnail-3.jpg" alt="..." class="img-fluid"></div>
+                            <div class="title">
+                                <strong>Alberto Savoia Can Teach You About</strong>
+                                <div class="d-flex align-items-center">
+                                    <div class="views"><i class="icon-eye"></i> 500</div>
+                                    <div class="comments"><i class="icon-comment"></i>12</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <!-- Widget [Categories Widget]-->
+            @*<div class="widget categories">
+                <header>
+                    <h3 class="h6">Categories</h3>
+                </header>
+                <div class="item d-flex justify-content-between"><a href="#">Growth</a><span>12</span></div>
+                <div class="item d-flex justify-content-between"><a href="#">Local</a><span>25</span></div>
+                <div class="item d-flex justify-content-between"><a href="#">Sales</a><span>8</span></div>
+                <div class="item d-flex justify-content-between"><a href="#">Tips</a><span>17</span></div>
+                <div class="item d-flex justify-content-between"><a href="#">Local</a><span>25</span></div>
+            </div>*@
+            <!-- Widget [Tags Cloud Widget]-->
+            @*<div class="widget tags">
+                <header>
+                    <h3 class="h6">Tags</h3>
+                </header>
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a href="#" class="tag">#Business</a></li>
+                    <li class="list-inline-item"><a href="#" class="tag">#Technology</a></li>
+                    <li class="list-inline-item"><a href="#" class="tag">#Fashion</a></li>
+                    <li class="list-inline-item"><a href="#" class="tag">#Sports</a></li>
+                    <li class="list-inline-item"><a href="#" class="tag">#Economy</a></li>
+                </ul>
+            </div>*@
+        </aside>
+    </div>
+</div>
+

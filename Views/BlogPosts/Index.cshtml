@@ -1,0 +1,92 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@using TFridBlog.Models
+
+@model IPagedList<BlogPost>
+
+@*@model IEnumerable<TFridBlog.Models.BlogPost>*@
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h2>Blog Posts</h2>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-action rounded" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            '<table class="table table-striped table-bordered">
+                <tr>
+                    <th>
+                        @Html.Display("Created")
+
+                    </th>
+                    <th>
+                        @Html.Display("Updated")
+
+                    </th>
+                    <th>
+                        @Html.Display("Title")
+                       
+                    </th>
+                    <th>
+                       @Html.Display("Abstract")
+                     
+                    </th>
+                    <th>
+                        @Html.Display("MediaUrl")
+                        MediaUrl
+                    </th>
+                    <th>
+                        @Html.Display("Published?")
+                        
+                    </th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Created)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Updated)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Abstract)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MediaUrl)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IsPublished)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { slug = item.Slug }, new { @class = "text-success" })
+                            @Html.ActionLink("Details", "Details", new { slug = item.Slug }, new { @class = "txt-detail" })
+                            @Html.ActionLink("Delete", "Delete", new { slug = item.Slug }, new { @class = "txt-delete" })
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col  text-center">
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, searchStr = ViewBag.Search }))
+        </div>
+    </div>
+</div>
+

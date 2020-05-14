@@ -1,0 +1,52 @@
+﻿@model TFridBlog.Models.EmailModel
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h4>Send me a message.</h4>
+                <br />
+                @Html.ValidationSummary("", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="row">            
+            @Html.LabelFor(m => m.FromName, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.FromName, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.FromName)
+            </div>            
+        </div>
+        <div class="row">            
+            @Html.LabelFor(m => m.FromEmail, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control", placeholder = "example@email.com" })
+                @Html.ValidationMessageFor(m => m.FromEmail)
+            </div>           
+        </div>
+        <div class="row">           
+            @Html.LabelFor(m => m.Subject, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m => m.Subject, new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.Subject)
+            </div>           
+        </div>
+        <div class="row">            
+            @Html.LabelFor(m => m.Body, new { @class = "col-md-2 control-label" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(m => m.Body, new { rows = 10, cols = 113 })
+                @Html.ValidationMessageFor(m => m.Body)
+            </div>            
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" class="btn btn-action" value="Send" />
+                </div>
+            </div>
+        </div>
+    </div>   
+    
+}

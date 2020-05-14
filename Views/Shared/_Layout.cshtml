@@ -1,0 +1,158 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Bootstrap Blog - B4 Template by Bootstrap Temple</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="all,follow">
+    <!-- Bootstrap CSS-->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <!-- Font Awesome CSS-->
+    <link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+    <!-- Custom icon font-->
+    <link href="~/Content/fontastic.css" rel="stylesheet" />
+
+    <!-- Google fonts - Open Sans-->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300,400,700">
+    <!-- Fancybox-->
+    <link href="~/Content/jquery.fancybox.min.css" rel="stylesheet" />
+    <link href="~/Content/style.default.css" rel="stylesheet" />
+    @*PageList Stylesheet*@
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+    <!-- Custom stylesheet - for your changes-->
+    @*<link rel="stylesheet" href="css/custom.css">*@
+    <link href="~/Content/custom.css" rel="stylesheet" />
+    <!-- Favicon-->
+    @*What about this*@
+    <link rel="shortcut icon" href="favicon.ico">
+    <!-- Tweaks for older IEs-->
+    <!--[if lt IE 9]>
+    <script src="//oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+</head>
+<body>
+    <header class="header">
+        <!-- Main Navbar-->
+        <nav class="navbar navbar-expand-lg">
+            <div class="search-area">
+                <div class="search-area-inner d-flex align-items-center justify-content-center">
+                    <div class="close-btn"><i class="icon-close"></i></div>
+                    <div class="row d-flex justify-content-center">
+                        <div class="col-md-8">                           
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Get, new { @class = "form-group" }))
+                        {
+                            <div class="tox-form__controls-h-stack controls-row search-row">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col">
+                                            <input id="searchStr" name="searchStr" class="input-block-level, form-control border-dark" border="3" type="text" placeholder="Search the Blog" />
+                                            <br />                                                       
+                                            <button id="btnSearchStr" name="btnSearchStr" class="class" type="submit">
+                                                <i class="icon-search-1"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>                                            
+                            </div>
+                        }                                    
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <!-- Navbar Brand -->
+                <div class="navbar-header d-flex align-items-center justify-content-between">
+                    <!-- Navbar Brand -->                    
+                    @Html.ActionLink("Terri's Blog", "Index", "Home", null, new { @class = "navbar-brand" })
+                    <!-- Toggle Button-->
+                    <button type="button" data-toggle="collapse" data-target="#navbarcollapse" aria-controls="navbarcollapse" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span></span><span></span><span></span></button>
+                </div>
+                <!-- Navbar Menu -->
+                <div id="navbarcollapse" class="collapse navbar-collapse">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
+                        </li>
+
+                        @if (User.IsInRole("Admin"))
+                        {
+
+                            <li class="nav-item">
+                                @Html.ActionLink("Administrator", "Index", "BlogPosts", null, new { @class = "nav-link" })
+                            </li>
+                        }
+                        <li class="nav-item">
+                                @Html.ActionLink("Contact", "Contact", "Home", null, new { @class = "nav-link" })
+                        </li>
+                    </ul>
+
+                    @Html.Partial("_LoginPartial")
+                    <div class="navbar-text"><a href="#" class="search-btn"><i class="icon-search-1"></i></a></div>
+                   
+                
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    @RenderBody()
+
+    <hr />
+
+    <!-- Page Footer-->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="logo">
+                        <h6 class="text-white">Terri Frid</h6>
+                    </div>
+                    <div class="contact-details">
+                        <p>103 Tangle Dr., Jamestown, NC 27282</p>
+                        <p>Phone: (336) 906-5017</p>
+                        <p>Email: <a href="mailto:terrifrid@hotmail.com">TerriFrid@Hotmail.com</a></p>
+                        <ul class="social-menu">
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-behance"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+           
+            </div>
+        </div>
+        <div class="copyrights">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <p>&copy; 2017. All rights reserved. Your great site.</p>
+                    </div>
+                    <div class="col-md-6 text-right">
+                        <p>
+                            Template By <a href="https://bootstrapious.com/p/bootstrap-carousel" class="text-white">Bootstrapious</a>
+                            <!-- Please do not remove the backlink to Bootstrap Temple unless you purchase an attribution-free license at Bootstrap Temple or support us at http://bootstrapious.com/donate. It is part of the license conditions. Thanks for understanding :)                         -->
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript files-->
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.cookie.js"></script>
+    <script src="~/Scripts/jquery.fancybox.min.js"></script>
+    <script src="~/Scripts/front.js"></script>
+
+    @RenderSection("scripts", required: false)
+</body>
+
+
+</html>
