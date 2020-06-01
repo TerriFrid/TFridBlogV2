@@ -17,8 +17,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col">
-            @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-action rounded" })
+        <div class="col-3">
+            @Html.ActionLink("Create New", "Create", null, new { @class = "form-control btn btn-action" })
         </div>
     </div>
     <div class="row">
@@ -71,11 +71,12 @@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.IsPublished)
+                           
                         </td>
                         <td>
-                            @Html.ActionLink("Edit", "Edit", new { slug = item.Slug }, new { @class = "text-success" })
-                            @Html.ActionLink("Details", "Details", new { slug = item.Slug }, new { @class = "txt-detail" })
-                            @Html.ActionLink("Delete", "Delete", new { slug = item.Slug }, new { @class = "txt-delete" })
+                            @Html.ActionLink("Edit", "Edit", "BlogPosts", new { slug = item.Slug }, new { @class = "text-success" })
+                            @Html.ActionLink("Details", "Details", "BlogPosts", new { slug = item.Slug }, new { @class = "txt-detail" })
+                            @Html.ActionLink("Delete", "Delete", "BlogPosts",new { slug = item.Slug }, new { @class = "txt-delete" })
                         </td>
                     </tr>
                 }
